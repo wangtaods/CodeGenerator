@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+	</head>
+
+	<body>
+		<form class="layui-form layui-form-pane" action="save.do" method="post">
+		#foreach($column in $columns)
+			<div class="layui-form-item">
+				<label class="layui-form-label">${column.comments}</label>
+				<div class="layui-input-block">
+					<input type="text" name="${column.attrname}"   placeholder="请输入${column.comments}" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+		 #end	
+			<div class="layui-form-item">
+				<div class="layui-input-block">
+					<button class="layui-btn" lay-submit lay-filter="formSub">立即提交</button>
+					<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+				</div>
+			</div>
+		</form>
+
+		<script>
+			//Demo
+			layui.use('form', function() {
+			var form = layui.form;
+	
+			//监听提交
+			form.on('submit(formSub)', function(data) {
+				$.post($(".layui-form").attr("action"),data.field,function(d){
+					d = JSON.parse(d);				
+					if(d.code == 0){
+						layer.msg("添加成功");
+						window.parent.close(true);
+					}else{
+						layer.msg("添加失败");
+					}
+					
+				});
+				return false;
+			});
+			});
+		</script>
+	</body>
+
+</html>

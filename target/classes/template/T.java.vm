@@ -1,0 +1,66 @@
+package ${package}.model;
+
+import java.io.Serializable;
+import java.util.Date;
+import ${package}.model.base.${className}Entity;
+/**
+ * ${comments}
+ * 
+ * @author ${author}
+ * @email ${email}
+ * @date ${datetime}
+ */
+public class ${className} implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private ${className}Entity entry;
+	
+	
+	public ${className}(){
+	}
+	public ${className}(	
+	#foreach ($column in $columns)
+	$column.attrType $column.attrname#if($foreach.hasNext),#end
+	#end){
+		this.entry = new ${className}Entity(
+	#foreach ($column in $columns)
+			$column.attrname #if($foreach.hasNext),#end
+	#end);
+	}
+	
+	
+	
+	
+	public ${className}(${className}Entity entry){
+		this.entry = entry;
+	}
+	
+	public void setEntity(${className}Entity entry){
+		this.entry = entry;
+	}
+	
+	
+	public ${className}Entity getEntity(){
+		return entry;
+	}
+	
+	#foreach ($column in $columns)
+	/**
+	 * 设置：${column.comments}
+	 */
+	public void set${column.attrName}($column.attrType $column.attrname) {
+		entry.set${column.attrName}( $column.attrname );
+	}
+	/**
+	 * 获取：${column.comments}
+	 */
+	public $column.attrType get${column.attrName}() {
+		return entry.get${column.attrName}();
+	}
+#end
+	
+
+}

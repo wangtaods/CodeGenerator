@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>${comments}</title>
+</head>
+<body>
+<div class="box-positon">
+	<div class="rpos" ><i class="icon-flag"></i>&nbsp;&nbsp;&nbsp;[@s.m "global.position"/]: [@s.m "${module}.${pathName}.page"/] - [@s.m "global.list"/]</div>
+	<form class="ropt"></form>
+	<div class="clear" ></div>
+</div> 
+
+ <div class="body-box" style="margin: 20px;">     
+    <div class="layui-btn-group listTable">
+    [@dc_perm url="${module}.${pathName}.delete"]
+	  <button class="layui-btn" data-type="getCheckData">[@s.m "global.delete.select"/]</button>
+   	[/@dc_perm]
+    [@dc_perm url="${module}.${pathName}.save"]
+	  <button class="layui-btn" data-type="add">[@s.m "global.add"/]</button> 
+  	[/@dc_perm]
+	</div>
+	<div class="layui-input-inline">
+			<input type="text"   id="searchValue" placeholder="请输入检索"  style="width: 120px;height: 36px;margin: 10px" >
+			<button class="layui-btn" data-type="search"> <i class="layui-icon" style="font-size: 20px; "></i>[@s.m "global.search"/]</button>
+	</div>
+	<table class="layui-table" lay-data="{ url:'#&{base+appBase}/${pathName}/list.do', method:'post',  page:true, id:'listTable'}" lay-filter="list">
+	  <thead>
+	    <tr>
+	      <th lay-data="{type:'checkbox', fixed: 'left'}"></th>
+	      	#foreach($column in $columns)
+			#if($column.columnName != $pk.columnName) #end
+			   <th lay-data="{field:'${column.attrname}'}">${column.comments}</th>
+		    #end
+	      <th lay-data="{fixed: 'right', align:'center', toolbar: '#bar'}">[@s.m "global.operate"/]</th>
+	    </tr>
+	  </thead>
+	</table>
+	<script type="text/html" id="bar">
+ 	<!--  <a class="layui-btn layui-btn-xs" lay-event="show" >查看</a> -->
+ 	 [@dc_perm url="${module}.${pathName}.update"]
+ 	  <a class="layui-btn layui-btn-xs" lay-event="edit" >[@s.m "global.update"/]</a>
+ 	 [/@dc_perm]
+ 	 [@dc_perm url="${module}.${pathName}.delete"]
+ 	  <a class="layui-btn layui-btn-xs" lay-event="del" >[@s.m "global.delete"/]</a>
+	 [/@dc_perm]
+	</script> 
+</div>	
+	 
+ <script src="#&{base}/js/${module}/${pathName}.js"></script>  
+</body>
+</html>
+
+ 

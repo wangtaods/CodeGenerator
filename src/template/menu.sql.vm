@@ -1,0 +1,21 @@
+-- 菜单SQL
+
+INSERT INTO `t_menu` (`name`, `parent`, `url`, `permission`, `icon`, `index`, `ismenu`) 
+VALUES ('${comments}', 1, '${pathName}/page.do', '${module}.${pathName}.page', '', '1', '1');
+-- 按钮父菜单ID
+set @replaceSql = '';
+SELECT  @replaceSql:= MAX(id)  FROM `t_menu`;
+
+-- 菜单对应按钮SQL
+INSERT INTO `t_menu` (`name`, `parent`, `url`, `permission`, `icon`, `index`, `ismenu`) 
+VALUES ('${comments}',@replaceSql, '${pathName}/list.do', '${module}.${pathName}.list', '', '1', '0');
+INSERT INTO `t_menu` (`name`, `parent`, `url`, `permission`, `icon`, `index`, `ismenu`) 
+   VALUES ('添加${comments}',@replaceSql , '${pathName}/save.do', '${module}.${pathName}.save', '', '1', '0');
+INSERT INTO `t_menu` (`name`, `parent`, `url`, `permission`, `icon`, `index`, `ismenu`) 
+   VALUES ('修改${comments}',@replaceSql , '${pathName}/update.do', '${module}.${pathName}.update', '', '1', '0');
+INSERT INTO `t_menu` (`name`, `parent`, `url`, `permission`, `icon`, `index`, `ismenu`) 
+   VALUES ('删除${comments}',@replaceSql , '${pathName}/delete.do', '${module}.${pathName}.delete', '', '1', '0');
+
+SELECT CONCAT(permission,'=',`name`) FROM `t_menu` WHERE id >= @replaceSql; 
+    
+ 
