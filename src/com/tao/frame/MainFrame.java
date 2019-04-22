@@ -48,6 +48,7 @@ public class MainFrame implements MouseListener, SelectionListener  {
 	private String selectDataBase;
 	private Button allselectbutton;
 	private Button inverseSelectButton;
+	private Button standard;
 
 	/**
 	 * Launch the application.
@@ -139,7 +140,7 @@ public class MainFrame implements MouseListener, SelectionListener  {
 		opnFilebutton.addMouseListener(this);
 
 		getDataSourceButton = new Button(shell, SWT.NONE);
-		getDataSourceButton.setBounds(106, 378, 98, 30);
+		getDataSourceButton.setBounds(136, 378, 98, 30);
 		getDataSourceButton.setText("\u83B7\u53D6\u6570\u636E\u6E90");
 		getDataSourceButton.addMouseListener(this);
 		startButton = new Button(shell, SWT.NONE);
@@ -180,6 +181,12 @@ public class MainFrame implements MouseListener, SelectionListener  {
 		inverseSelectButton.setBounds(856, 32, 57, 20);
 		inverseSelectButton.setText("\u53CD\u9009");
 		inverseSelectButton.addSelectionListener(this);
+		
+		
+		standard = new Button(shell, SWT.CHECK);
+		standard.setBounds(10, 378, 150, 30);
+		standard.setText("标准maven项目");
+		standard.addSelectionListener(this);
 
 	}
 
@@ -299,7 +306,6 @@ public class MainFrame implements MouseListener, SelectionListener  {
 
 	@Override
 	public void mouseUp(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -333,6 +339,12 @@ public class MainFrame implements MouseListener, SelectionListener  {
 			int[] indices = tableList.getSelectionIndices();
 			tableList.selectAll();
 			tableList.deselect(indices);
+		} else if (standard == event.getSource()) {
+			
+			GenUtils.src = "src/main/java";
+			GenUtils.WebRoot = "src/main/webapp";
+			
+			
 		}
 
 	}
