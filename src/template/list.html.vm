@@ -24,13 +24,13 @@
 			<input type="text"   id="searchValue" placeholder="请输入检索"  style="width: 120px;height: 36px;margin: 10px" >
 			<button class="layui-btn" data-type="search"> <i class="layui-icon" style="font-size: 20px; "></i>[@s.m "global.search"/]</button>
 	</div>
-	<table class="layui-table" lay-data="{ url:'#&{base+appBase}/${pathName}/list.do', method:'post',  page:true, id:'listTable'}" lay-filter="list">
+	<table class="layui-table" lay-data="{ url:'#&{base+appBase}/${pathName}/list.do', method:'post',  page:true, id:'listTable', even:true,defaultToolbar: ['filter', 'print', 'exports'],toolbar: 'default'}" lay-filter="list">
 	  <thead>
 	    <tr>
 	      <th lay-data="{type:'checkbox', fixed: 'left'}"></th>
 	      	#foreach($column in $columns)
 			#if($column.columnName != $pk.columnName) #end
-			   <th lay-data="{field:'${column.attrname}'}">${column.comments}</th>
+			   <th lay-data="{width:120,align:'center',field:'${column.attrname}'}">${column.comments}</th>
 		    #end
 	      <th lay-data="{fixed: 'right', align:'center', toolbar: '#bar'}">[@s.m "global.operate"/]</th>
 	    </tr>
