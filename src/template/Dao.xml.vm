@@ -25,11 +25,14 @@
 	<select id="queryList" resultType="${package}.model.base.${className}Entity">
 		select  <include refid="Base_Column_List" />  from ${tableName}
 <where>
+<if test="searchValue != null and searchValue.trim() != ''"> and (
+#set($foo = 1)
 #foreach($column in $columns)
 #if($column.dataType=='varchar')
-	<if test="searchValue != null and searchValue.trim() != ''"> OR `$column.columnName` like '%${searchValue}%'</if>
+#if($foo > 1) OR #end `$column.columnName` like '%${searchValue}%'
+#set($foo = $foo + 1)
 #end
-#end
+#end) </if>
 </where>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
