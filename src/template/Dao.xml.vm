@@ -48,7 +48,21 @@
 	</select>
 	
  	<select id="queryTotal" resultType="int">
-		select count(*) from ${tableName} 
+ 	
+ 	select count(*) from (
+		select * from ${tableName} 
+		
+<where>
+<if test="searchValue != null and searchValue.trim() != ''"> and (
+#set($foo = 1)
+#foreach($column in $columns)
+#if($column.dataType=='varchar')
+#if($foo > 1) OR #end `$column.columnName` like '%${searchValue}%'
+#set($foo = $foo + 1)
+#end
+#end) </if>
+</where>
+	) t	
 	</select>
 	 
 	<insert id="save" parameterType="${package}.model.base.${className}Entity"#if($pk.extra == 'auto_increment') useGeneratedKeys="true" keyProperty="$pk.attrname"#end>
