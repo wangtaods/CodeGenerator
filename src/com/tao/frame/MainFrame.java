@@ -10,6 +10,8 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.zip.ZipOutputStream;
 
+import javax.swing.JOptionPane;
+
 import org.apache.commons.io.IOUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
@@ -17,7 +19,6 @@ import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
@@ -27,7 +28,7 @@ import org.eclipse.swt.widgets.Text;
 import com.tao.utils.GenUtils;
 import com.tao.utils.MysqlDBUtils;
 
-public class MainFrame implements MouseListener, SelectionListener  {
+public class MainFrame implements MouseListener, SelectionListener {
 
 	private static final String SHOW_TABLES = "show tables;";
 	private static final String SHOW_DATABASES = "show databases;";
@@ -76,8 +77,13 @@ public class MainFrame implements MouseListener, SelectionListener  {
 			shell.open();
 			shell.layout();
 			while (!shell.isDisposed()) {
-				if (!display.readAndDispatch()) {
-					display.sleep();
+				try {
+					if (!display.readAndDispatch()) {
+						display.sleep();
+					}
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, e.getClass(), "【出错啦】", JOptionPane.ERROR_MESSAGE);
+					e.printStackTrace();
 				}
 			}
 		} catch (Exception e) {
@@ -181,12 +187,16 @@ public class MainFrame implements MouseListener, SelectionListener  {
 		inverseSelectButton.setBounds(856, 32, 57, 20);
 		inverseSelectButton.setText("\u53CD\u9009");
 		inverseSelectButton.addSelectionListener(this);
-		
-		
+
 		standard = new Button(shell, SWT.CHECK);
 		standard.setBounds(10, 378, 150, 30);
 		standard.setText("标准maven项目");
+
+		btnSpringboot = new Button(shell, SWT.CHECK);
+		btnSpringboot.setBounds(10, 432, 119, 17);
+		btnSpringboot.setText("springboot项目");
 		standard.addSelectionListener(this);
+		btnSpringboot.addSelectionListener(this);
 
 	}
 
@@ -229,7 +239,7 @@ public class MainFrame implements MouseListener, SelectionListener  {
 		} else {
 
 			generatorCode(tableList.getSelection(), diskText.getText() + File.separator);
-
+			JOptionPane.showMessageDialog(null, "已完成", "【成功】", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 
@@ -241,7 +251,7 @@ public class MainFrame implements MouseListener, SelectionListener  {
 			List<Map<String, String>> columns = MysqlDBUtils.getInstanse().queryColumns(ipText.getText().trim(),
 					portText.getText().trim(), passText.getText().trim(), userText.getText().trim(), selectDataBase,
 					tableName);
-			GenUtils.generatorCode(table, columns, null, false,projectPath,packageText.getText());
+			GenUtils.generatorCode(table, columns, null, false, projectPath, packageText.getText());
 		}
 
 	}
@@ -257,7 +267,7 @@ public class MainFrame implements MouseListener, SelectionListener  {
 			List<Map<String, String>> columns = MysqlDBUtils.getInstanse().queryColumns(ipText.getText().trim(),
 					portText.getText().trim(), passText.getText().trim(), userText.getText().trim(), selectDataBase,
 					tableName);
-			GenUtils.generatorCode(table, columns, zip, true, null,packageText.getText());
+			GenUtils.generatorCode(table, columns, zip, true, null, packageText.getText());
 		}
 		IOUtils.closeQuietly(zip);
 		return outputStream.toByteArray();
@@ -279,15 +289,13 @@ public class MainFrame implements MouseListener, SelectionListener  {
 		// }
 		// str = f.toString();
 		// }
-		FileDialog fileDialog1 =  new FileDialog(shell);
-		
+		FileDialog fileDialog1 = new FileDialog(shell);
+
 		fileDialog1.setText("选择项目");
 		fileDialog1.open();
 		diskText.setText(fileDialog1.getFilterPath());
 	}
 
-	
-	
 	private void getDataSource() {
 		dataBaseList.removeAll();
 		addData(dataBaseList, MYSQL, SHOW_DATABASES);
@@ -315,6 +323,7 @@ public class MainFrame implements MouseListener, SelectionListener  {
 
 	private boolean all = false;
 	private Properties prop;
+	private Button btnSpringboot;
 
 	@Override
 	public void widgetSelected(SelectionEvent event) {
@@ -340,13 +349,20 @@ public class MainFrame implements MouseListener, SelectionListener  {
 			tableList.selectAll();
 			tableList.deselect(indices);
 		} else if (standard == event.getSource()) {
-			
+
 			GenUtils.src = "src/main/java";
-			GenUtils.WebRoot = "src/main/webapp";
+			GenUtils.WebRoot = "src/main/webapp" + File.separator + "WEB-INF" + File.separator + "htmlpages";
+			GenUtils.WebJs = "src/main/webapp";
+			GenUtils.Mapper= "src/main/java";
 			
-			
+
+		} else if (btnSpringboot == event.getSource()) {
+
+			GenUtils.src = "src/main/java";
+			GenUtils.WebRoot = "src/main/resources/templates";
+			GenUtils.WebJs = "src/main/resources/static";
+			GenUtils.Mapper = "src/main/resources/mapper";
 		}
 
 	}
-
 }

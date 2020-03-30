@@ -124,7 +124,9 @@
 	<delete id="delete">
 		delete from ${tableName} where ${pk.columnName} = #{value}
 	</delete>
-	
+	<delete id="deleteByDate">
+		delete from ${tableName} where date = #{date}
+	</delete>
 	<delete id="deleteBatch">
 		delete from ${tableName} where ${pk.columnName} in 
 		<foreach item="${pk.attrname}" collection="array" open="(" separator="," close=")">

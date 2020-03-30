@@ -3,6 +3,7 @@ package ${package}.controller;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.http.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -60,7 +61,7 @@ public class ${className}Controller extends BaseController{
 	/**
 	 * 列表
 	 */
-	@RequestMapping(value="/list.do", produces="text/html;charset=UTF-8", method = RequestMethod.POST)
+	@RequestMapping(value="/list.do", produces=MediaType.APPLICATION_JSON_UTF8_VALUE, method = RequestMethod.POST)
 	@ResponseBody
 	public Object list(@RequestParam Map<String, Object> params){
 	    Query query = new Query(params);
@@ -73,7 +74,7 @@ public class ${className}Controller extends BaseController{
 	/**
 	 * 信息
 	 */
-	@RequestMapping(value="/findById.do", produces="text/html;charset=UTF-8", method = RequestMethod.POST)
+	@RequestMapping(value="/findById.do", produces=MediaType.APPLICATION_JSON_UTF8_VALUE, method = RequestMethod.POST)
 	@ResponseBody
 	public Object info(@PathVariable("${pk.attrname}") ${pk.attrType} ${pk.attrname}){
 		${className}Entity ${classname} = ${classname}Service.queryObject(${pk.attrname});
@@ -83,7 +84,7 @@ public class ${className}Controller extends BaseController{
 	/**
 	 *保存
 	 */
-	@RequestMapping(value="/save.do", produces="text/html;charset=UTF-8", method = RequestMethod.POST)
+	@RequestMapping(value="/save.do", produces=MediaType.APPLICATION_JSON_UTF8_VALUE, method = RequestMethod.POST)
 	@ResponseBody
 	public Object save(@ModelAttribute ${className}Entity ${classname}){
 		${classname}Service.save(${classname});
@@ -93,7 +94,7 @@ public class ${className}Controller extends BaseController{
 	/**
 	 *  修改
 	 */
-	@RequestMapping(value="/update.do", produces="text/html;charset=UTF-8", method = RequestMethod.POST)
+	@RequestMapping(value="/update.do", produces=MediaType.APPLICATION_JSON_UTF8_VALUE, method = RequestMethod.POST)
 	@ResponseBody
 	public Object update(@ModelAttribute ${className}Entity ${classname}){
 		int result = ${classname}Service.update(${classname});
@@ -103,7 +104,7 @@ public class ${className}Controller extends BaseController{
 	/**
 	 * 删除
 	 */
-	@RequestMapping(value="/delete.do", produces="text/html;charset=UTF-8", method = RequestMethod.POST)
+	@RequestMapping(value="/delete.do", produces=MediaType.APPLICATION_JSON_UTF8_VALUE, method = RequestMethod.POST)
 	@ResponseBody
 	public Object delete(@RequestParam ${pk.attrType}[] ids){
 		int result = ${classname}Service.deleteBatch(ids);

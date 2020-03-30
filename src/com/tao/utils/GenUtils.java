@@ -36,7 +36,9 @@ import com.tao.model.TableEntity;
 public class GenUtils {
 
 	public static String src = "src";
-	public static String WebRoot = "WebRoot";
+	public static String WebRoot = "WebRoot" + File.separator + "WEB-INF" + File.separator + "htmlpages";
+	public static String WebJs = "WebRoot";
+	public static String Mapper = "src";;
 
 	public static List<String> getTemplates() {
 		List<String> templates = new ArrayList<String>();
@@ -221,7 +223,7 @@ public class GenUtils {
 		}
 
 		if (template.contains("Dao.xml.vm")) {
-			return packagePath + "dao" + File.separator + className + "Dao.xml";
+			return Mapper + File.separator+ packageName.replace(".", File.separator) + File.separator+ "dao" + File.separator + className + "Dao.xml";
 		}
 
 		if (template.contains("Service.java.vm")) {
@@ -242,29 +244,26 @@ public class GenUtils {
 					+ ".jsp";
 		}
 		if (template.contains("list.html.vm")) {
-			return WebRoot + File.separator + "WEB-INF" + File.separator + "htmlpages" + File.separator
-					+ packageName.substring(packageName.lastIndexOf(".") + 1) + File.separator + className.toLowerCase()
-					+ File.separator + className.toLowerCase() + ".html";
+			return WebRoot + File.separator + packageName.substring(packageName.lastIndexOf(".") + 1) + File.separator
+					+ className.toLowerCase() + File.separator + className.toLowerCase() + ".html";
 		}
 
 		if (template.contains("list.js.vm")) {
-			return WebRoot + File.separator + "js" + File.separator
+			return WebJs + File.separator + "js" + File.separator
 					+ packageName.substring(packageName.lastIndexOf(".") + 1) + File.separator + className.toLowerCase()
 					+ ".js";
 		}
 
 		if (template.contains("menu.sql.vm")) {
-			return  File.separator + className.toLowerCase() + "_menu.sql";
+			return File.separator + className.toLowerCase() + "_menu.sql";
 		}
 		if (template.contains("form_add.html.vm")) {
-			return WebRoot + File.separator + "WEB-INF" + File.separator + "htmlpages" + File.separator
-					+ packageName.substring(packageName.lastIndexOf(".") + 1) + File.separator + className.toLowerCase()
-					+ File.separator + className.toLowerCase() + "_add.html";
+			return WebRoot + File.separator + packageName.substring(packageName.lastIndexOf(".") + 1) + File.separator
+					+ className.toLowerCase() + File.separator + className.toLowerCase() + "_add.html";
 		}
 		if (template.contains("form_update.html.vm")) {
-			return WebRoot + File.separator + "WEB-INF" + File.separator + "htmlpages" + File.separator
-					+ packageName.substring(packageName.lastIndexOf(".") + 1) + File.separator + className.toLowerCase()
-					+ File.separator + className.toLowerCase() + "_update.html";
+			return WebRoot + File.separator + packageName.substring(packageName.lastIndexOf(".") + 1) + File.separator
+					+ className.toLowerCase() + File.separator + className.toLowerCase() + "_update.html";
 		}
 		return null;
 	}

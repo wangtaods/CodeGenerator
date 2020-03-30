@@ -14,7 +14,7 @@ layui.use('table', function(){
       layer.confirm('真的删除行么', function(index){
         layer.close(index);
 	      $.post("delete.do", {"ids":data.$pk.columnName}, function(data) {
-			layer.alert("成功删除" + JSON.parse(data).count + "条");
+			layer.alert("成功删除" + data.count + "条");
 			table.reload("listTable");
 		  });
       });
@@ -30,7 +30,10 @@ layui.use('table', function(){
 		})
     } 
   });
-  
+    table.on('row(list)', function(obj){
+      $(".layui-table-body tr ").attr({"style":"background:#FFFFFF"});//其他tr恢复原样
+      $(obj.tr.selector).attr({"style":"background:#99ff99"});//改变当前tr颜色
+  });
   var $ = layui.$, active = {
     getCheckData: function(){ //获取选中数据
       var checkStatus = table.checkStatus('listTable')
@@ -45,7 +48,7 @@ layui.use('table', function(){
 		   layer.confirm('真的删除选中的条目吗？', function(index) {
 				layer.close(index);
 				$.post("delete.do", {"ids":ids.join(",")}, function(data) {
-					layer.alert("成功删除" + JSON.parse(data).count + "条");
+					layer.alert("成功删除" + data.count + "条");
 					table.reload("listTable");
 				});
 			});
