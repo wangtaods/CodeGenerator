@@ -32,7 +32,7 @@
 			//监听提交
 			form.on('submit(formSub)', function(data) {
 				$.post($(".layui-form").attr("action"),data.field,function(d){
-					d = JSON.parse(d);				
+					// d = JSON.parse(d);				
 					if(d.code == 0){
 						layer.msg("添加成功");
 						window.parent.close(true);

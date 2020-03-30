@@ -67,18 +67,5 @@ public class ${className}ServiceImpl implements ${className}Service ,DownLoadAnd
 	}
 	
 
-	@Override
-	public void generateTemplateFile(OutputStream out) {
-
-	}
-
-	@Override
-	public String getTableName() {
-		return null;
-	}
-	@Override
-	public int loadFileToTable(List<List<String>> data) {
-		return 0;
-	}
 	
 }

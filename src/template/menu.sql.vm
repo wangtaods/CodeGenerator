@@ -1,7 +1,7 @@
 -- 菜单SQL
 
 INSERT INTO `t_menu` (`name`, `parent`, `url`, `permission`, `icon`, `index`, `ismenu`) 
-VALUES ('${comments}', 1, '${pathName}/page.do', '${module}.${pathName}.page', '', '1', '1');
+VALUES ('${comments}', 249, '${pathName}/page.do', '${module}.${pathName}.page', '', '1', '1');
 -- 按钮父菜单ID
 set @replaceSql = '';
 SELECT  @replaceSql:= MAX(id)  FROM `t_menu`;

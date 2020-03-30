@@ -14,35 +14,35 @@
  <div class="body-box" style="margin: 20px;">     
     <div class="layui-btn-group listTable">
     [@dc_perm url="${module}.${pathName}.delete"]
-	  <button class="layui-btn" data-type="getCheckData">[@s.m "global.delete.select"/]</button>
+	  <button class="layui-btn layui-btn-danger" data-type="getCheckData"><i class="layui-icon">&#xe640;</i>[@s.m "global.delete.select"/]</button>
    	[/@dc_perm]
     [@dc_perm url="${module}.${pathName}.save"]
-	  <button class="layui-btn" data-type="add">[@s.m "global.add"/]</button> 
+	  <button class="layui-btn layui-btn-normal" data-type="add"><i class="layui-icon">&#xe608;</i> [@s.m "global.add"/]</button> 
   	[/@dc_perm]
 	</div>
 	<div class="layui-input-inline">
 			<input type="text"   id="searchValue" placeholder="请输入检索"  style="width: 120px;height: 36px;margin: 10px" >
 			<button class="layui-btn" data-type="search"> <i class="layui-icon" style="font-size: 20px; "></i>[@s.m "global.search"/]</button>
 	</div>
-	<table class="layui-table" lay-data="{ url:'#&{base+appBase}/${pathName}/list.do', method:'post',  page:true, id:'listTable', even:true,defaultToolbar: ['filter', 'print', 'exports'],toolbar: 'default'}" lay-filter="list">
+	<table class="layui-table" lay-data="{ url:'#&{base+appBase}/${pathName}/list.do', method:'post', title:'${comments}' , page:true, id:'listTable', even:true,defaultToolbar: ['filter', 'print', 'exports'],toolbar: 'default'}" lay-filter="list">
 	  <thead>
 	    <tr>
 	      <th lay-data="{type:'checkbox', fixed: 'left'}"></th>
 	      	#foreach($column in $columns)
 			#if($column.columnName != $pk.columnName) #end
-			   <th lay-data="{width:120,align:'center',field:'${column.attrname}'}">${column.comments}</th>
+			   <th lay-data="{minWidth:120,align:'center',field:'${column.attrname}'}">${column.comments}</th>
 		    #end
-	      <th lay-data="{fixed: 'right', align:'center', toolbar: '#bar'}">[@s.m "global.operate"/]</th>
+	      <th lay-data="{minWidth:120,fixed: 'right', align:'center', toolbar: '#bar'}">[@s.m "global.operate"/]</th>
 	    </tr>
 	  </thead>
 	</table>
 	<script type="text/html" id="bar">
- 	<!--  <a class="layui-btn layui-btn-xs" lay-event="show" >查看</a> -->
+ 	<!--  <a class="layui-btn layui-btn-xs layui-btn-normal " lay-event="show" >查看</a> -->
  	 [@dc_perm url="${module}.${pathName}.update"]
- 	  <a class="layui-btn layui-btn-xs" lay-event="edit" >[@s.m "global.update"/]</a>
+ 	  <a class="layui-btn layui-btn-xs  layui-btn-warm" lay-event="edit" ><i class="layui-icon">&#xe642;</i>[@s.m "global.update"/]</a>
  	 [/@dc_perm]
  	 [@dc_perm url="${module}.${pathName}.delete"]
- 	  <a class="layui-btn layui-btn-xs" lay-event="del" >[@s.m "global.delete"/]</a>
+ 	  <a class="layui-btn layui-btn-xs  layui-btn-danger" lay-event="del" ><i class="layui-icon">&#xe640;</i>[@s.m "global.delete"/]</a>
 	 [/@dc_perm]
 	</script> 
 </div>	
