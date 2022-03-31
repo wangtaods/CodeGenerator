@@ -6,7 +6,7 @@
 	<artifactId>CodeGenerator</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<properties>
-		<springversion>4.3.7.RELEASE</springversion>
+		<springversion>5.3.18</springversion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
